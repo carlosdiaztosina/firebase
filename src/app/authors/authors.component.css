@@ -1,0 +1,18 @@
+.items{
+    display: inline;
+}
+.tables{
+    display: flex;
+    justify-content: space-between;
+}
+
+.remove{
+    color: red;
+    margin-left: 85px;
+}
+p{
+    align-self: flex-start;
+}
+p:hover{
+    color: rgb(222, 179, 51);
+}

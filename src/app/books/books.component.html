@@ -1,0 +1,10 @@
+<div class="m-3">
+  <h3 class="text-center fw-bolder fs-4">Lista de Libros</h3>
+
+  <ul class="items">
+    <li *ngFor="let libro of libros; let i = index" class="table">
+      <span class="badge">{{libro.idUnico}}</span><p (click)="onSelect(libro)">{{libro.nombre}}</p><span class="badge" (click)="remove(libro.id)">X</span>
+    </li>
+  </ul>
+</div>
+

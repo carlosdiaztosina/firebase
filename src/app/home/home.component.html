@@ -1,0 +1,45 @@
+
+ <div>
+    <form [formGroup]="createLibro" (ngSubmit)="esEditarAgregar()">
+        <div class="row m-3">
+            <h3>Añadir Libro</h3>
+            <div class="col-6">
+                <label for="nombreLibro" class="form-label">Nombre del libro</label>
+                <input type="text" formControlName="nombre" class="form-control" id="nombreLibro" required>
+            </div>
+            <div class="col-6">
+                <label for="imagenLibro" class="form-label">Url de la imagen del libro</label>
+                <input type="text" formControlName="imagen" class="form-control" id="imagenLibro" required>
+            </div>
+        </div>
+        <div class="row m-3">
+            <div class="col-6">
+                <label for="autor" class="form-label">Seleccionar autor</label>
+                <select  class="form-select" formControlName="autor" aria-label="Default select example">
+                    <option selected>Selecciona autor</option>
+                    <option *ngFor="let autor of autores" [value]="autor.id">{{autor.nombre}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="row m-4">
+            <button type="submit" class="btn btn-primary col-1">Submit</button>
+        </div>
+    </form>
+    
+    <form [formGroup]="createAutor" (ngSubmit)="agregarAutor()">
+        <div class="row m-3">
+            <h3>Añadir Autor</h3>
+            <div class="col-6">
+                <label for="nombreLibro" class="form-label">Nuevo Autor</label>
+                <input type="text" formControlName="autorNuevo" class="form-control" id="autorLibro" >
+            </div>
+            <div class="col-6">
+                <label for="autorImagen" class="form-label">Foto del Autor</label>
+                <input type="text" formControlName="autorImagen" class="form-control" id="autorImagen" >
+            </div>
+        </div>
+        <div class="row m-4">
+            <button type="submit" class="btn btn-primary col-1">Submit</button>
+        </div>
+    </form>
+ </div>
