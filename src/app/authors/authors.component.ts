@@ -51,8 +51,6 @@ export class AuthorsComponent implements OnInit {
     this._libroService.getAutores().subscribe(data => {
       this.autores = [];
       data.forEach((element: any) => {
-        // console.log(element.payload.doc.id)
-        // console.log(element.payload.doc.data())
         this.autores.push({
           id: element.payload.doc.id,
           ...element.payload.doc.data()
@@ -66,8 +64,6 @@ export class AuthorsComponent implements OnInit {
     this._libroService.getLibroByAutor(this.route.snapshot.params['idAutor']).subscribe(data => {
       this.libros = [];
       data.forEach((element: any) => {
-        // console.log(element.payload.doc.id)
-        // console.log(element.payload.doc.data())
         this.libros.push({
           id: element.payload.doc.id,
           ...element.payload.doc.data()
@@ -96,7 +92,7 @@ export class AuthorsComponent implements OnInit {
         this._libroService.eliminarAutor(id).then(()=>{
           console.log('autor eliminado correctamente')
         }).catch(error=>{
-          console.log('error');
+          console.log(error);
         })
       } else {
         Swal("No se ha eliminado al autor");

@@ -22,8 +22,6 @@ export class BooksComponent implements OnInit {
     this._libroService.getLibros().subscribe(data =>{
       this.libros=[];
       data.forEach((element:any) => {
-        // console.log(element.payload.doc.id)
-        // console.log(element.payload.doc.data())
         this.libros.push({
           id:element.payload.doc.id,
           ...element.payload.doc.data()
@@ -53,8 +51,8 @@ export class BooksComponent implements OnInit {
         this._libroService.eliminarLibro(id).then(()=>{
           console.log('autor eliminado correctamente')
         }).catch(error=>{
-          console.log('error');
-        })
+          console.log(error);
+        });
       } else {
         Swal("No se ha eliminado al autor");
       }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Route } from '@angular/router';
+import { ActivatedRoute} from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LibroService } from '../services/libro.service';
 
@@ -51,8 +51,6 @@ export class HomeComponent implements OnInit {
     this._libroSercive.getLibros().subscribe(data =>{
       this.libros=[];
       data.forEach((element:any) => {
-        // console.log(element.payload.doc.id)
-        // console.log(element.payload.doc.data())
         this.libros.push({
           id:element.payload.doc.id,
           ...element.payload.doc.data()
@@ -65,8 +63,6 @@ export class HomeComponent implements OnInit {
     this._libroSercive.getAutores().subscribe(data =>{
       this.autores=[];
       data.forEach((element:any) => {
-        // console.log(element.payload.doc.id)
-        // console.log(element.payload.doc.data())
         this.autores.push({
           id:element.payload.doc.id,
           ...element.payload.doc.data()
@@ -77,8 +73,6 @@ export class HomeComponent implements OnInit {
 
   esEditarAgregar(){
     this.submit = true;
-
-    if(this.createLibro.invalid){}
     if(this.ref === null){
       this.agregarLibro();
     }else{
@@ -100,7 +94,7 @@ export class HomeComponent implements OnInit {
       console.log('libro añadido!');
       location.href ="/books";
     }).catch(error=>{
-      console.log('error');
+      console.log(error);
     })
   }
 
@@ -116,7 +110,7 @@ export class HomeComponent implements OnInit {
     this._libroSercive.agregarAutor(autor).then(()=>{
       console.log('libro añadido!');
     }).catch(error=>{
-      console.log('error');
+      console.log(error);
     })
   }
 
@@ -161,7 +155,7 @@ export class HomeComponent implements OnInit {
       console.log('libro añadido!');
       location.href ="/indexcard/"+id;
     }).catch(error=>{
-      console.log('error');
+      console.log(error);
     });
   }
 

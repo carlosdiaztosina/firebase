@@ -2,9 +2,10 @@
 <div *ngIf="bookAutor; else elseBlock" class="m-3">
     <div class="row d-flex align-items-center justify-content-center">
         <h3 class=" text-center fw-bolder fs-4 col-10"> {{bookAutor}}</h3>
-        <img class="col-2 rounded-circle" loading="lazy" src={{autorImg}} style="width:120px;height:120px;">
+        <img class="col-2 rounded-circle" alt="" loading="lazy" src={{autorImg}} style="width:120px;height:120px;">
     </div>
     <table class="table table-white table-hover">
+        <caption>Tabla de los libros que ha escrito el autor.</caption>
         <thead>
           <tr>
             <th class="fs-5">Libros</th>
@@ -14,7 +15,7 @@
         <tbody>
             <tr *ngFor="let libro of libros">
                 <td class="fs-6 text-decoration-underline col-9">{{libro.nombre}}</td>
-                <td class="col-3"><img loading="lazy" src={{libro.imagen}} style="width:90px;height:120px;"></td>
+                <td class="col-3"><img loading="lazy"  alt="" src={{libro.imagen}} style="width:90px;height:120px;"></td>
             </tr>
         </tbody>
     </table>
