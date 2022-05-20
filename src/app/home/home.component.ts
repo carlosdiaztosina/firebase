@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute} from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LibroService } from '../services/libro.service';
@@ -12,6 +12,11 @@ export class HomeComponent implements OnInit {
   libros: any[]=[];
   autores: any[]=[];
 
+  regex = /(?:https?):\/\/(\w+:?\w*)?(\S+)(:\d+)?(\/|\/([\w#!:.?+=&%!\-\/]))?/;
+
+  fotoCardLibro = "https://siempreenmedio.files.wordpress.com/2014/04/no_disponible.jpg";
+  fotoCardAutor = "https://siempreenmedio.files.wordpress.com/2014/04/no_disponible.jpg";
+
   ref : string| null;
 
   createLibro: FormGroup;
@@ -19,23 +24,18 @@ export class HomeComponent implements OnInit {
 
   submit = false;
 
-  // public nombre : string | any;
-  // public autor : string | any;
-  // public img : string | any;
-
   constructor(private route : ActivatedRoute, private fb: FormBuilder, private _libroSercive: LibroService){ 
     this.createLibro = this.fb.group({
       nombre:['',Validators.required],
       autor:['',Validators.required],
-      imagen:['',Validators.required]
+      imagen:['',[Validators.required,Validators.pattern(this.regex)]]
     });
     this.createAutor = this.fb.group({
       autorNuevo:['',Validators.required],
-      autorImagen:['',Validators.required]
+      autorImagen:['',[Validators.required,Validators.pattern(this.regex)]]
     });
 
     this.ref = this.route.snapshot.paramMap.get('id');
-    console.log(this.ref);
   }
 
   ngOnInit(): void {
@@ -76,12 +76,14 @@ export class HomeComponent implements OnInit {
     if(this.ref === null){
       this.agregarLibro();
     }else{
-      this.editarLibro(this.ref );
+      this.editarLibro(this.ref);
     }
   }
 
   agregarLibro(){
     console.log(this.createLibro)
+    
+    // var imagen = this.regex.test(this.createLibro.value.imagen) ? this.createLibro.value.imagen : this.fotoCardLibro;
     const libro: any ={
       idUnico:this.libros.length + 1,
       nombre:this.createLibro.value.nombre,
@@ -106,9 +108,12 @@ export class HomeComponent implements OnInit {
       fechaCreacion: new Date(),
       fechaActualizacion: new Date()
     }
-
     this._libroSercive.agregarAutor(autor).then(()=>{
-      console.log('libro añadido!');
+      console.log(document.getElementsByTagName('autorLibro'));
+      this.createAutor.setValue({
+        autorNuevo:'',
+        autorImagen:''
+      });
     }).catch(error=>{
       console.log(error);
     })
@@ -123,12 +128,10 @@ export class HomeComponent implements OnInit {
           imagen : data.payload.data()['imagen'],
           autor : data.payload.data()['idAutor']
         })
+        this.imagenCard(data.payload.data()['imagen']);
         let idAutor = data.payload.data()['idAutor'];
         this.esAutor(idAutor);
       });
-      
-      
-      console.log(this.createLibro)
     }
   }
 
@@ -157,6 +160,24 @@ export class HomeComponent implements OnInit {
     }).catch(error=>{
       console.log(error);
     });
+  }
+
+  imagenCard(foto:string){
+    if(!this.regex .test(foto)) {
+      this.fotoCardLibro = "https://siempreenmedio.files.wordpress.com/2014/04/no_disponible.jpg";
+    }else{
+      this.fotoCardLibro = foto;
+      
+    }
+  }
+
+  imagenCardAutor(foto:string){
+    if(!this.regex .test(foto)) {
+      this.fotoCardAutor = "https://siempreenmedio.files.wordpress.com/2014/04/no_disponible.jpg";
+    }else{
+      this.fotoCardAutor = foto;
+      
+    }
   }
 
 }

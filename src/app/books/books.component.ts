@@ -27,7 +27,6 @@ export class BooksComponent implements OnInit {
           ...element.payload.doc.data()
         })
       });
-      console.log(this.libros)
     })
   }
 

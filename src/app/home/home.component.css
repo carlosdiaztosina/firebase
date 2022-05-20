@@ -1,0 +1,15 @@
+.cardLibro{
+    background: #0a99b52b;
+}
+
+.cardHeardLibro{
+    background: #58b4c7;
+}
+
+.cardHeardLibro h3{
+    color: white;
+}
+
+.mensajeError{
+    color: red;
+}

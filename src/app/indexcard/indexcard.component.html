@@ -4,7 +4,7 @@
         <label for="">Nombre del Libro</label>
         <h3 class="fw-bolder fs-5">{{bookNombre}}</h3>
         <label for="">Nombre del Autor</label>
-        <h3 class="fw-bolder fs-5"><span class="autor" (click)="onSelect(bookIdAutor)">{{bookAutor}}</span></h3>
+        <h3 class="fw-bolder fs-5"><span class="autor" type="button" (click)="onSelect(bookIdAutor)">{{bookAutor}}</span></h3>
         <button type="button" [routerLink]="['/home', bookId]">Editar Libro</button>
     </div>
     <div class="col-6 text-center">

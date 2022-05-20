@@ -1,45 +1,59 @@
-
- <div>
-    <form [formGroup]="createLibro" (ngSubmit)="esEditarAgregar()">
-        <div class="row m-3">
-            <h3>Añadir Libro</h3>
-            <div class="col-6">
-                <label for="nombreLibro" class="form-label">Nombre del libro</label>
-                <input type="text" formControlName="nombre" class="form-control" id="nombreLibro" required>
-            </div>
-            <div class="col-6">
-                <label for="imagenLibro" class="form-label">Url de la imagen del libro</label>
-                <input type="text" formControlName="imagen" class="form-control" id="imagenLibro" required>
-            </div>
+<div class="m-4 row d-flex justify-content-around">
+    <div class="card cardLibro col-5 mr-2 border-info border-4 rounded p-0" >
+        <div class="card-header cardHeardLibro border-info"><h3 class="text-center fw-bolder fs-4 m-auto">Añadir Libro</h3></div>
+        <img src={{fotoCardLibro}} class="card-img-top mx-auto mt-2" alt="..." style="width:140px;height:200px;">
+        <div class="card-body row">
+            <form [formGroup]="createLibro" (ngSubmit)="esEditarAgregar()">
+                <div class="row m-3">
+                    <div class="col-6">
+                        <label for="nombreLibro" class="form-label">Nombre del libro</label>
+                        <input type="text" formControlName="nombre" class="form-control" id="nombreLibro" required>
+                    </div>
+                    <div class="col-6">
+                        <label for="imagenLibro" class="form-label">Url de la imagen del libro</label>
+                        <input #fotoValor type="text" formControlName="imagen" class="form-control" id="imagenLibro" (change)="imagenCard(fotoValor.value)" required>
+                        <div *ngIf="createLibro.get('imagen')?.hasError('pattern')">
+                            <p class="mensajeError">La Url no es válida</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row m-3">
+                    <div class="col-6">
+                        <label for="autor" class="form-label">Seleccionar autor</label>
+                        <select  class="form-select" formControlName="autor" aria-label="Default select example">
+                            <option selected>Selecciona autor</option>
+                            <option *ngFor="let autor of autores" [value]="autor.id">{{autor.nombre}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row m-4">
+                    <button type="submit" [disabled]="createLibro.invalid" class="btn btn-primary col-3">Añadir</button>
+                </div>
+            </form>
         </div>
-        <div class="row m-3">
-            <div class="col-6">
-                <label for="autor" class="form-label">Seleccionar autor</label>
-                <select  class="form-select" formControlName="autor" aria-label="Default select example">
-                    <option selected>Selecciona autor</option>
-                    <option *ngFor="let autor of autores" [value]="autor.id">{{autor.nombre}}</option>
-                </select>
-            </div>
+      </div>
+      <div class="card cardLibro col-5 mr-2 border-info border-4 rounded p-0">
+        <div class="card-header cardHeardLibro border-info"><h3 class="text-center fw-bolder fs-4 m-auto">Añadir Autor</h3></div>
+        <img src={{fotoCardAutor}} class="card-img-top mx-auto mt-2" alt="..." style="width:140px;height:200px;">
+        <div class="card-body">
+            <form [formGroup]="createAutor" (ngSubmit)="agregarAutor()">
+                <div class="row m-3">
+                    <div class="col-6">
+                        <label for="nombreLibro" class="form-label">Nuevo Autor</label>
+                        <input #nombreAutor type="text" formControlName="autorNuevo" class="form-control" id="autorLibro" >
+                    </div>
+                    <div class="col-6">
+                        <label for="autorImagen" class="form-label">Foto del Autor</label>
+                        <input #fotoValor2 type="text" formControlName="autorImagen" class="form-control" id="autorImagen" (change)="imagenCardAutor(fotoValor2.value)" >
+                        <div *ngIf="createAutor.get('autorImagen')?.hasError('pattern')">
+                            <p class="mensajeError">La Url no es válida</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row m-4">
+                    <button type="submit"  [disabled]="createAutor.invalid" class="btn btn-primary col-3">Añadir</button>
+                </div>
+            </form>
         </div>
-        <div class="row m-4">
-            <button type="submit" class="btn btn-primary col-1">Submit</button>
-        </div>
-    </form>
-    
-    <form [formGroup]="createAutor" (ngSubmit)="agregarAutor()">
-        <div class="row m-3">
-            <h3>Añadir Autor</h3>
-            <div class="col-6">
-                <label for="nombreLibro" class="form-label">Nuevo Autor</label>
-                <input type="text" formControlName="autorNuevo" class="form-control" id="autorLibro" >
-            </div>
-            <div class="col-6">
-                <label for="autorImagen" class="form-label">Foto del Autor</label>
-                <input type="text" formControlName="autorImagen" class="form-control" id="autorImagen" >
-            </div>
-        </div>
-        <div class="row m-4">
-            <button type="submit" class="btn btn-primary col-1">Submit</button>
-        </div>
-    </form>
+      </div>
  </div>
