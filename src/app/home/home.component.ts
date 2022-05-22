@@ -11,6 +11,8 @@ import { LibroService } from '../services/libro.service';
 export class HomeComponent implements OnInit {
   libros: any[]=[];
   autores: any[]=[];
+  titulo="";
+  boton="";
 
   regex = /(?:https?):\/\/(\w+:?\w*)?(\S+)(:\d+)?(\/|\/([\w#!:.?+=&%!\-\/]))?/;
 
@@ -41,9 +43,13 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     if(this.ref !== null){
       this.esEditar();
+      this.titulo="Editar";
+      this.boton="Editar";
     }else{
       this.getLibros();
       this.getAutores();
+      this.titulo="Añadir";
+      this.boton="Añadir";
     }
   }
   getLibros(){
